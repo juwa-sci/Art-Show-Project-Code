@@ -5,6 +5,8 @@ var both = 0;
 var counter = 0;
 var currentBlocks = [];
 
+//allows ball to move right and left only when on block 
+
 function moveLeft(){
     var left = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
     if(left>0){
@@ -17,6 +19,8 @@ function moveRight(){
         character.style.left = left + 2 + "px";
     }
 }
+//allows ball to move right and left only when on block when user presses right or left arrow key
+
 document.addEventListener("keydown", event => {
     if(both==0){
         both++;
@@ -28,6 +32,8 @@ document.addEventListener("keydown", event => {
         }
     }
 });
+//When user unclicks arrow keys ball stops moving
+
 document.addEventListener("keyup", event => {
     clearInterval(interval);
     both=0;
@@ -36,6 +42,8 @@ document.addEventListener("keyup", event => {
 var blocks = setInterval(function(){
     var blockLast = document.getElementById("block"+(counter-1));
     var holeLast = document.getElementById("hole"+(counter-1));
+    //Block and Hole if statement and generates an infintime amount of blocks and holes
+
     if(counter>0){
         var blockLastTop = parseInt(window.getComputedStyle(blockLast).getPropertyValue("top"));
         var holeLastTop = parseInt(window.getComputedStyle(holeLast).getPropertyValue("top"));
@@ -56,14 +64,18 @@ var blocks = setInterval(function(){
         currentBlocks.push(counter);
         counter++;
     }
+    //The ball can stay on top of the block but if it's in a hole the ball can drop
     var characterTop = parseInt(window.getComputedStyle(character).getPropertyValue("top"));
     var characterLeft = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
     var drop = 0;
+    // game score
     if(characterTop <= 0){
         alert("GAME OVER!!! Score: "+(counter-9));
         clearInterval(blocks);
         location.reload();
     }
+    
+  //the position of the blocks and holes so that the blocks and holes can move up
     for(var i = 0; i < currentBlocks.length;i++){
         let current = currentBlocks[i];
         let iblock = document.getElementById("block"+current);
